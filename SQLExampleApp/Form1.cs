@@ -15,9 +15,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SQLExampleApp
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        Point LastPoint;
+        public MainForm()
         {
             InitializeComponent();
             refresh();
@@ -86,6 +87,25 @@ namespace SQLExampleApp
                 }
                 context.SaveChanges();
                 refresh();
+            }
+        }
+
+        private void EXITButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MainForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            LastPoint = new Point(e.X, e.Y);
+        }
+
+        private void MainForm_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Left += e.X - LastPoint.X;
+                this.Top += e.Y - LastPoint.Y;
             }
         }
     }
